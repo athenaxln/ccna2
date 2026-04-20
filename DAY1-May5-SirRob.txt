@@ -63,7 +63,7 @@ config t
    Int Vlan 50
      no shutdown
 	 ip add 10.21.50.4 255.255.255.0
-	 description IPCCTV
+	 description IPCAMERA
    Int Vlan 100
      no shutdown
 	 ip add 10.21.100.4 255.255.255.0
@@ -115,7 +115,7 @@ ip dhcp pool WIFIDATA
 ip dhcp pool IPCAMERA
    network 10.21.50.0 255.255.255.0
    default-router 10.21.50.4
-   domain-name IPCCTV.COM
+   domain-name IPCAMERA.COM
    dns-server 10.21.1.10
 ip dhcp pool VOICEVLAN
    network 10.21.100.0 255.255.255.0
