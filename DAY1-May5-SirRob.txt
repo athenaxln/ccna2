@@ -1,5 +1,5 @@
 TASK1: COLLAPSED BACKBONE: BASIC LAYER3 CONFIGURATION.
-!@@@CORE SWITCH SA TAAS
+!@@@CORE SWITCH SA TAAS (BackUp SW)
 config t
    hostname COREtaas-21
    enable secret pass
@@ -25,7 +25,7 @@ config t
    Int Vlan 50
      no shutdown
 	 ip add 10.21.50.2 255.255.255.0
-	 description IPCCTV
+	 description IPCAMERA
    Int Vlan 100
      no shutdown
 	 ip add 10.21.100.2 255.255.255.0
@@ -33,7 +33,7 @@ config t
 end
 
 !!!DAPAT 7 UNDER21SCORE ANG NA EDIT MO  ( LINE 34 to 68 PASTE TO COREBABA SWITCH )
-!@@@LeafSwitchONLY
+!@@@LeafSwitchONLY -- hindi ba dapat 
 config t
    hostname COREbaba-21
    enable secret pass
@@ -112,7 +112,7 @@ ip dhcp pool WIFIDATA
    default-router 10.21.10.4
    domain-name WIFIDATA.COM
    dns-server 10.21.1.10
-ip dhcp pool IPCCTV
+ip dhcp pool IPCAMERA
    network 10.21.50.0 255.255.255.0
    default-router 10.21.50.4
    domain-name IPCCTV.COM
@@ -123,15 +123,16 @@ ip dhcp pool VOICEVLAN
    domain-name VOICEVLAN.COM
    dns-server 10.21.1.10
    option 150 ip 10.21.100.8   
+    ! this 'option 150 ip' is the IP of CUCM for automatic network registration of new analog phones and obtain IPs
    END
 
-!!CREATING AND PLACING PORTS INSIDEAVLAN:
+!!CREATING AND PLACING PORTS INSIDE A VLAN:
 ( LINE 103 to 141 PASTE TO COREBABA SWITCH )
 config t
 vlan 10
    name WIFIVLAN
 vlan 50
-   name CAMERAVLAN
+   name IPCAMERAVLAN
 vlan 69
    name NOC
 vlan 70
@@ -164,6 +165,7 @@ Int Fa 0/7
   switchport mode access
   switchport voice vlan 100 
   mls qos trust device cisco-phone 
+  ! this command is used only sa mga ephones for prioritization ng QOS -- can be tagged as code Platinum
  switchport access vlan 1
  end
 
